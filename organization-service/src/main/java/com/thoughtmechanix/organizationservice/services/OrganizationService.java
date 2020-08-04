@@ -1,5 +1,6 @@
 package com.thoughtmechanix.organizationservice.services;
 
+import com.thoughtmechanix.organizationservice.events.source.SimpleSourceBean;
 import com.thoughtmechanix.organizationservice.model.Organization;
 import com.thoughtmechanix.organizationservice.repository.OrganizationRepository;
 import com.thoughtmechanix.organizationservice.repository.OrganizationRepository;
@@ -13,6 +14,9 @@ public class OrganizationService {
     @Autowired
     private OrganizationRepository orgRepository;
 
+    @Autowired
+    private SimpleSourceBean simpleSourceBean;
+
     public Organization getOrg(String organizationId) {
         if(orgRepository.findById(organizationId).isPresent())
             return orgRepository.findById(organizationId).get();
@@ -23,7 +27,7 @@ public class OrganizationService {
         org.setId( UUID.randomUUID().toString());
 
         orgRepository.save(org);
-
+        simpleSourceBean.publishOrgChange("SAVE", org.getId());
     }
 
     public void updateOrg(Organization org){
