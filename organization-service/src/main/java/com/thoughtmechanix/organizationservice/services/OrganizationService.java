@@ -1,12 +1,13 @@
 package com.thoughtmechanix.organizationservice.services;
 
 import com.thoughtmechanix.organizationservice.events.source.SimpleSourceBean;
-import com.thoughtmechanix.organizationservice.model.Organization;
-import com.thoughtmechanix.organizationservice.repository.OrganizationRepository;
+import com.thoughtmechanix.organizationservice.model.Organizations;
 import com.thoughtmechanix.organizationservice.repository.OrganizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -17,24 +18,28 @@ public class OrganizationService {
     @Autowired
     private SimpleSourceBean simpleSourceBean;
 
-    public Organization getOrg(String organizationId) {
-        if(orgRepository.findById(organizationId).isPresent())
-            return orgRepository.findById(organizationId).get();
-        return new Organization();
+    public Organizations getOrg(String organizationId) {
+        Optional<Organizations> org = orgRepository.findById(organizationId);
+        List<Organizations> organizationList = orgRepository.findAll();
+        Organizations organization = new Organizations();
+        if(org.isPresent()) {
+            organization = org.get();
+        }
+        return organization;
     }
 
-    public void saveOrg(Organization org){
+    public void saveOrg(Organizations org){
         org.setId( UUID.randomUUID().toString());
 
         orgRepository.save(org);
         simpleSourceBean.publishOrgChange("SAVE", org.getId());
     }
 
-    public void updateOrg(Organization org){
+    public void updateOrg(Organizations org){
         orgRepository.save(org);
     }
 
-    public void deleteOrg(Organization org){
+    public void deleteOrg(Organizations org){
         orgRepository.delete(org);
     }
 }

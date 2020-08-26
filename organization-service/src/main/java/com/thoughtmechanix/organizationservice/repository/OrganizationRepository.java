@@ -1,13 +1,8 @@
 package com.thoughtmechanix.organizationservice.repository;
 
-import com.thoughtmechanix.organizationservice.model.Organization;
-import org.springframework.data.repository.CrudRepository;
+import com.thoughtmechanix.organizationservice.model.Organizations;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
-import java.util.Optional;
-
 @Repository
-public interface OrganizationRepository extends CrudRepository<Organization,String>  {
-    public Optional<Organization> findById(String organizationId);
+public interface OrganizationRepository extends JpaRepository<Organizations,String> {
 }

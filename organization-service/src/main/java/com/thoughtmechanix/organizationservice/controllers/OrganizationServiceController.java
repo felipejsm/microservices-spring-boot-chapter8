@@ -1,7 +1,7 @@
 package com.thoughtmechanix.organizationservice.controllers;
 
 
-import com.thoughtmechanix.organizationservice.model.Organization;
+import com.thoughtmechanix.organizationservice.model.Organizations;
 import com.thoughtmechanix.organizationservice.services.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,23 +20,23 @@ public class OrganizationServiceController {
 
 
     @RequestMapping(value="/{organizationId}",method = RequestMethod.GET)
-    public Organization getOrganization( @PathVariable("organizationId") String organizationId) {
+    public Organizations getOrganization( @PathVariable("organizationId") String organizationId) {
         return orgService.getOrg(organizationId);
     }
 
     @RequestMapping(value="/{organizationId}",method = RequestMethod.PUT)
-    public void updateOrganization( @PathVariable("organizationId") String orgId, @RequestBody Organization org) {
+    public void updateOrganization( @PathVariable("organizationId") String orgId, @RequestBody Organizations org) {
         orgService.updateOrg( org );
     }
 
     @RequestMapping(value="/{organizationId}",method = RequestMethod.POST)
-    public void saveOrganization(@RequestBody Organization org) {
+    public void saveOrganization(@RequestBody Organizations org) {
        orgService.saveOrg( org );
     }
 
     @RequestMapping(value="/{organizationId}",method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteOrganization( @PathVariable("orgId") String orgId,  @RequestBody Organization org) {
+    public void deleteOrganization( @PathVariable("orgId") String orgId,  @RequestBody Organizations org) {
         orgService.deleteOrg( org );
     }
 }

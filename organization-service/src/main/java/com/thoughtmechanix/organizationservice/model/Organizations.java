@@ -5,24 +5,24 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name = "organizations")
 @Table(name = "organizations")
-public class Organization {
+public class Organizations {
     @Id
     @Column(name = "organization_id", nullable = false)
-    String id;
+    private String id;
 
     @Column(name = "name", nullable = false)
-    String name;
+    private String name;
 
     @Column(name = "contact_name", nullable = false)
-    String contactName;
+    private String contactName;
 
     @Column(name = "contact_email", nullable = false)
-    String contactEmail;
+    private String contactEmail;
 
     @Column(name = "contact_phone", nullable = false)
-    String contactPhone;
+    private String contactPhone;
 
 
     public String getId() {

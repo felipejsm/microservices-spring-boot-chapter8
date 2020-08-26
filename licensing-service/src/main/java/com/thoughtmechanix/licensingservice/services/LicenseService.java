@@ -11,6 +11,7 @@ import com.thoughtmechanix.licensingservice.model.Organization;
 import com.thoughtmechanix.licensingservice.repository.LicenseRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -100,6 +101,7 @@ public class LicenseService {
             }
 
     )
+    @Cacheable("organization")
     public List<License> getLicensesByOrg(String organizationId) {
         randomlyRunLong();// método levará 11 segundos, extrapolando o 1s de tolerância
         return this.licenseRepository.findByOrganizationId(organizationId);
